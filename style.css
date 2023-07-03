@@ -1,4 +1,4 @@
-.container{
+/* .container{
     display: grid;
     grid-template-rows: repeat(3,1fr);
     grid-template-columns: repeat(3,1fr);
@@ -7,17 +7,25 @@
     height: 300px;
     border: none;
     background-color: rgba(78, 68, 213, 0.708);
-}
+} */
 
 .grid{
     
     border: none;
 }
 
-.grid-col1{
-    border-bottom:2px solid orange;
+.grid-col1,.grid-col2,.grid-col3{
+    border-bottom:8px solid orange;
+    border-radius: 6px;
     display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width: 300px;
+    height: 100px;
 }
+.grid-col3{
+    border: none;
+}
+
 
 .make-circle{
     border-radius: 50%;
@@ -39,4 +47,17 @@
 
 .make-square:hover,.make-circle:hover{
     box-shadow: none;
+}
+
+.line1,.line2{
+    border: 4px solid orange;
+    border-radius: 12px;
+    height: 300px;
+    width: 0px;
+    position: absolute;
+    top: 10px;
+    left: 100px;
+}
+.line2{
+    left: 205px;
 }
