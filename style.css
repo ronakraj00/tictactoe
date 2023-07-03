@@ -1,0 +1,42 @@
+.container{
+    display: grid;
+    grid-template-rows: repeat(3,1fr);
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    width: 300px;
+    height: 300px;
+    border: none;
+    background-color: rgba(78, 68, 213, 0.708);
+}
+
+.grid{
+    
+    border: none;
+}
+
+.grid-col1{
+    border-bottom:2px solid orange;
+    display: grid;
+}
+
+.make-circle{
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    place-self: center;
+    background-color: rgba(213, 213, 85, 0.826);
+    box-shadow: 2px 2px 4px;
+}
+
+.make-square{
+    height: 60px;
+    width: 60px;
+    place-self: center;
+    background-color: rgb(84, 212, 131);
+    border-radius: 12px;
+    box-shadow: 2px 2px 4px;
+}
+
+.make-square:hover,.make-circle:hover{
+    box-shadow: none;
+}
