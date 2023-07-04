@@ -1,63 +1,77 @@
-/* .container{
+.container{
     display: grid;
     grid-template-rows: repeat(3,1fr);
     grid-template-columns: repeat(3,1fr);
-    gap: 10px;
+
     width: 300px;
     height: 300px;
-    border: none;
-    background-color: rgba(78, 68, 213, 0.708);
-} */
-
-.grid{
     
+    justify-content: center;
+    align-content: center;
+}
+
+body{
+    margin: 0px;
+    height: 100vh;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+.grid{
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: 5px solid black;
 }
 
-.grid-col1,.grid-col2,.grid-col3{
-    border-bottom:8px solid orange;
-    border-radius: 6px;
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    width: 300px;
-    height: 100px;
+.grid1,.grid2,.grid3{
+    border-top:none;
 }
-.grid-col3{
-    border: none;
+.grid9,.grid7,.grid8{
+    border-bottom:none ;
 }
-
-
-.make-circle{
-    border-radius: 50%;
-    height: 70px;
-    width: 70px;
-    place-self: center;
-    background-color: rgba(213, 213, 85, 0.826);
-    box-shadow: 2px 2px 4px;
+.grid1,.grid4,.grid7{
+    border-left: none;
+}
+.grid3,.grid6,.grid9{
+    border-right: none;
 }
 
-.make-square{
-    height: 60px;
-    width: 60px;
-    place-self: center;
-    background-color: rgb(84, 212, 131);
-    border-radius: 12px;
-    box-shadow: 2px 2px 4px;
+.make-cross::before,.make-cross::after{
+    content: "";
+    width: 10px;
+    height: 40px;
+    border: 2px solid;
+    background-color: black;
 }
-
-.make-square:hover,.make-circle:hover{
-    box-shadow: none;
+.make-cross::before{
+    transform: rotate(45deg);
 }
-
-.line1,.line2{
-    border: 4px solid orange;
-    border-radius: 12px;
-    height: 300px;
-    width: 0px;
+.make-cross::after{
+    transform: rotate(-45deg);
     position: absolute;
-    top: 10px;
-    left: 100px;
 }
-.line2{
-    left: 205px;
+
+.make-square::before,.make-square::after{
+    content: "";
+    width: 20px;
+    height: 40px;
+    background-color: black;
 }
+
+.winnerMessage.show{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.539);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: white;
+    font-weight: bold;
+}
+
+

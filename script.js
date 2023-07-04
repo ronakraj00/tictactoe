@@ -19,6 +19,7 @@ const gameBoard = (()=>{
 
     const fillGameBoard = (grid,sign)=>{
         gameBoardArray[grid-1]=sign;
+        whoWon();
     }
     return {gameBoardArray,fillGameBoard,grids};
 })();
@@ -30,7 +31,7 @@ const Player = (name,sign)=>{
     return {play}; 
 }
 
-const ronak = Player("ronak","circle");
+const ronak = Player("ronak","cross");
 
 function AIPlay(){
     
@@ -48,12 +49,16 @@ function AIPlay(){
 }
 
 function game(grid,click){
+    checkDraw();
     ronak.play(grid);
     whoWon();
+    checkDraw();
     if(click<5){
         AIPlay();
         whoWon();
+        checkDraw();
     }
+
 }
 
 function whoWon(){
@@ -73,7 +78,7 @@ function whoWon(){
         (gameBoard.gameBoardArray[array[1]]==gameBoard.gameBoardArray[array[2]])&&
         (gameBoard.gameBoardArray[array[0]]!==null)){
             winnerMessage(gameBoard.gameBoardArray[array[0]])
-            endGame();
+            
         }
     })
 }
@@ -85,5 +90,17 @@ function endGame(){
 
 function winnerMessage(name){
     const winnerMessageText=document.querySelector(".winnerMessage");
-    winnerMessageText.textContent=`${name} has won`
+    winnerMessageText.classList.add("show");
+    winnerMessageText.textContent=`${name} has won`;
+    endGame();
+}
+
+function checkDraw(){
+    for(let i=0;i<9;i++){
+        if(gameBoard.gameBoardArray[i]==null){
+            return
+        }
+    }
+    whoWon();
+    winnerMessage("noOne");
 }
