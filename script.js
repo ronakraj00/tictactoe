@@ -1,46 +1,57 @@
+class Player{
+    constructor(name,sign){
+        this.name=name;
+        this.sign=sign;
+    }
+}
 
-function fillGrid(gridPositon,sign){
-    gridPositon.classList.add(`make-${sign}`);
-    const gridNo=gridPositon.getAttribute("data-gridNo")
-    gameBoard.fillGameBoard(gridNo,sign);
+function createPlayer(name,sign){
+    const newPlayer=new Player(name,sign);
+    return newPlayer;
+}
+
+function fillGameBoardArray(position){
+    gameBoard.gameBoardArray[position-1]=currentPlayer();
+}
+
+function currentPlayer(){
+    return "square";
 }
 
 const gameBoard = (()=>{
+
+    let gameBoardArray = [];
+
     const grids = document.querySelectorAll(".grid");
-    let click=0;
+
     grids.forEach(grid=>{
+
         grid.addEventListener("click",(e)=>{
-            game(grid,++click);
+            
+            const clickedGrid=e.target.getAttribute("data-gridNo");
+            game(clickedGrid);
+            // fillGameBoardArray(clickedGrid);
             e.stopPropagation();
+
     },{once:true});
+
     });
 
-    let gameBoardArray = [null,null,null,null,null,null,null,null,null];
-
-    const fillGameBoard = (grid,sign)=>{
-        gameBoardArray[grid-1]=sign;
-        whoWon();
-    }
-    return {gameBoardArray,fillGameBoard,grids};
+    return {gameBoardArray,grids};
 })();
 
-const Player = (name,sign)=>{
-    let play = (grid)=>{
-        fillGrid(grid,sign);
-    }
-    return {play}; 
-}
 
-const ronak = Player("ronak","cross");
 
 function AIPlay(){
     
     let newArray=[];
+
     for(let i=0;i<9;i++){
-        if(gameBoard.gameBoardArray[i]==null){
+        if(gameBoard.gameBoardArray[i]==undefined){
             newArray.push(i);
         }
     }
+
     let randomPosition=Math.floor(Math.random()*newArray.length);
     console.log("randomNO"+newArray[randomPosition]);
     
@@ -48,17 +59,18 @@ function AIPlay(){
 
 }
 
-function game(grid,click){
-    checkDraw();
-    ronak.play(grid);
-    whoWon();
-    checkDraw();
-    if(click<5){
-        AIPlay();
-        whoWon();
-        checkDraw();
-    }
+function game(clickedGrid){
+    fillGameBoardArray(clickedGrid);
+    renderGameBoard();
+}
 
+function renderGameBoard(){
+
+    gameBoard.gameBoardArray.forEach(grid=>{
+        if(grid==="square"){
+            //working on this
+        }
+    })
 }
 
 function whoWon(){
@@ -84,8 +96,7 @@ function whoWon(){
 }
 
 function endGame(){
-    setTimeout(()=>{location.reload()},2000)
-
+    gameBoard.gameBoardArray=[];
 }
 
 function winnerMessage(name){
