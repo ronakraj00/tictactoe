@@ -10,19 +10,26 @@ function createPlayer(name,sign){
     return newPlayer;
 }
 
-function fillGameBoardArray(position){
-    gameBoard.gameBoardArray[position-1]=currentPlayer();
+function fillGameBoardArray(position,player){
+    gameBoard.gameBoardArray[position-1]=currentPlayer(player);
 }
 
-function currentPlayer(){
-    return "square";
+function currentPlayer(player){
+    if(player=="user"){
+        return "cross";
+    }
+    if(player=="AI"){
+        return "square";
+    }
 }
 
 const gameBoard = (()=>{
 
     let gameBoardArray = [];
 
-    const grids = document.querySelectorAll(".grid");
+    let grids = document.querySelectorAll(".grid");
+    grids=[...grids]
+    console.log(grids);
 
     grids.forEach(grid=>{
 
@@ -45,32 +52,45 @@ const gameBoard = (()=>{
 function AIPlay(){
     
     let newArray=[];
-
     for(let i=0;i<9;i++){
-        if(gameBoard.gameBoardArray[i]==undefined){
+        if(gameBoard.gameBoardArray[i]!="cross"&&gameBoard.gameBoardArray[i]!="square"){
             newArray.push(i);
         }
     }
-
+    console.log(gameBoard.gameBoardArray);
+    console.log(newArray);
     let randomPosition=Math.floor(Math.random()*newArray.length);
-    console.log("randomNO"+newArray[randomPosition]);
-    
-    fillGrid(gameBoard.grids[newArray[randomPosition]],"square")
+    console.log(randomPosition);
+    if(newArray.length==0){
+        return "over";
+    }
+    console.log("randomNO"+(newArray[randomPosition]+1));
+    fillGameBoardArray(newArray[randomPosition]+1,"AI");
 
 }
 
 function game(clickedGrid){
-    fillGameBoardArray(clickedGrid);
+    fillGameBoardArray(clickedGrid,"user");
+    renderGameBoard();
+    if(AIPlay()=="over"){
+        endGame();
+        console.log("it's over");
+    };
     renderGameBoard();
 }
 
 function renderGameBoard(){
-
-    gameBoard.gameBoardArray.forEach(grid=>{
-        if(grid==="square"){
-            //working on this
+    for(let i=0;i<9;i++){
+        if(gameBoard.gameBoardArray[i]=="square"){
+            gameBoard.grids[i].classList.add("make-square");
         }
-    })
+        else if(gameBoard.gameBoardArray[i]=="cross"){
+            gameBoard.grids[i].classList.add("make-cross");
+        }
+        else{
+            gameBoard.grids[i].classList.remove("make-square","make-cross");
+        }
+    }   
 }
 
 function whoWon(){
@@ -97,6 +117,8 @@ function whoWon(){
 
 function endGame(){
     gameBoard.gameBoardArray=[];
+    renderGameBoard();
+    
 }
 
 function winnerMessage(name){
